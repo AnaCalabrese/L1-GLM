@@ -1,0 +1,41 @@
+function plot_rasters(Data, k, r_model)
+
+    subplot
+    % actual response
+    d = 0;
+    for i = 1 : length(Data(k).trial)
+        t = find(Data(k).trial(i).spikes);
+        spk = 0.1 * ones(1, length(t));
+        spk = spk + d;
+        plot(t, spk * 10,'.','Color',[0.5 0.5 0.5]);
+        d = d + 0.1;
+        hold on;
+    end
+    text(210,7,'ACTUAL');
+    xlim([200 length(Data(k).spectrogram)]);
+    set(gca,'XTickLabel',{});
+    ylabel('trial #');
+    %title('Spike rasters')
+
+    % glm response
+    switch condition
+        case 'song'
+            subplot(7,4,[13 14 15 16]);
+        case 'noise'
+            subplot(7,4,[25 26 27 28]);
+    end
+    d = 0;
+    for i = 1 : length(r_model(:,1))
+        t = find(r_model(i, :));
+        spk = 0.1 * ones(1, length(t));
+        spk = spk + d;
+        plot(t, spk * 10,'.','Color',[0.5 0 0]);
+        d = d + 0.1;
+        hold on;
+    end
+    text(210,7,'GLM');
+    xlim([200 length(Data(k).spectrogram)]);
+    set(gca,'XTickLabel',{});
+    %ylabel('trial #');
+
+end
