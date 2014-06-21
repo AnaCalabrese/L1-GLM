@@ -1,4 +1,4 @@
-penalizedGLM
+L1-GLM
 ============
 
 

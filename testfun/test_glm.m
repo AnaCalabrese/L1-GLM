@@ -21,14 +21,14 @@ function fig = test_glm(EstParams, Data)
     % get high-res strf and plot it
     strf = EstParams.strf;
     strfUP = UpsampleGLM(strf,3);
-    subplot (5,2, [1 3]);
+    subplot (6, 2, [1 3]);
     imagesc(strfUP);axis xy
     caxis([-max(abs(strfUP(:))) max(abs(strfUP(:)))]);
     set(gca,'YTick',[15 30 45 60]);
     set(gca,'YTickLabel',{'2';'4';'6';'8'});
     ylabel('Frequency (kHz)');
-    xlabel('time before spike (ms)');
-    text(50,56, 'STRF');
+    xlabel('Time before spike (ms)');
+    text(50,56, 'learned STRF');
     
     
     % get and process the test stimulus
@@ -42,14 +42,14 @@ function fig = test_glm(EstParams, Data)
         case 'glm'
             % plot spike history term
             h_filter = EstParams.shist;
-            subplot (5,2, [2 4]);
+            subplot (6,2, [2 4]);
             plot(exp(h_filter(end:-1:1)), '.-');
             xlim([1 5]);
             set(gca,'XTick',[1 2 3 4 5]);
             set(gca,'XTickLabel',{'3';'6';'9';'12';'15'});
-            xlabel('time after spike (ms)');
-            ylabel('gain');
-            text(1.4,1.4, 'post-spike filter');
+            xlabel('Time after spike (ms)');
+            ylabel('Gain');
+            text(1.4,1.4, 'learned post-spike filter');
          
             % compute model response
             [lambda_model, r_model] = sample_resp_glm(stim, bias, strf, h_filter, dt, 100);                   
@@ -71,7 +71,7 @@ function fig = test_glm(EstParams, Data)
     CC      = cc(1,2);
     
     % plot traces
-    subplot(5,2,[5 6]);
+    subplot(6,2,[7 8]);
     plot(psth_smoothed(200:end),'Color',[0.5 0.5 0.5],'LineWidth',1);
     hold on;
     plot(model_psth_sm(200:end),'Color',[0.5 0 0],'LineWidth',1);
@@ -79,8 +79,9 @@ function fig = test_glm(EstParams, Data)
     ylim([0 max(psth_smoothed)+0.1]);
     set(gca,'XTickLabel',{});
     legend('recorded','predicted','Location', 'NorthWest');
-    text(300,0.8, ['cc =' num2str(CC)]);
-    
+    text(300,0.8, ['prediction corr coef =' num2str(CC)]);
+    title('Time varying firing rate for a novel stimulus');   
+   
     % plot rasters
     plot_rasters(Data, test_stim, r_model(1:10,:));
 

@@ -1,4 +1,4 @@
-function [nll,g,H] = sigmoidl1(w,alpha,gradFunc,lambda,varargin);
+function [nll,g,H] = sigmoidL1(w,alpha,gradFunc,lambda,varargin)
 % Returns the 'SmoothL1' approximation of the objective:
 %   gradFunc(w,varargin{:}) + lambda*sum(abs(w0))
 
