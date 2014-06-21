@@ -8,4 +8,4 @@ A generalized linear model for estimating spectrotemporal receptive fields from 
 
 If you use this code please cite us.
 
-* The function (glm_demo.m) illustrates how to use the code.
+* The function (l1-glm_demo.m) illustrates how to use the code.
